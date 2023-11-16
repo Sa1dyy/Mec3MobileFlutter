@@ -11,9 +11,6 @@ class LandingPageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-
-        print('Dlaždice s názvem ${cardModel.name} byla klepnuta!');
-
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -22,35 +19,38 @@ class LandingPageCard extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.all(10.0),
-        padding: EdgeInsets.all(10.0),
+        margin: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           border: Border.all(
-            color: Color(0xFFA3AE03), // Barva rámečku
+            color: const Color(0xFFA3AE03), // Barva rámečku
             width: 2.0,
           ),
           color: Colors.white, // Barva pozadí
         ),
-        child: Stack(
+        child: Column(
           children: [
-            Image.asset(
-              cardModel.image,
-              height: 100.0,
-              width: 100.0,
-              fit: BoxFit.cover,
+            Container(
+              height: 100.0, // výška obrázku
+              width: 100.0, // šířka obrázku
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(cardModel.image),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
+            const SizedBox(height: 10), 
+            Expanded(
               child: Container(
-                color: Color(0xFFA3AE03), 
-                child: Text(
-                  cardModel.name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                color: const Color(0xFFA3AE03),
+                child: Center(
+                  child: Text(
+                    cardModel.name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
