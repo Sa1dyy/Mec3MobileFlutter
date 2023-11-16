@@ -1,7 +1,57 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:mec3mobileflutter/views/LandingPage.dart';
 
 class RegisterPage extends StatelessWidget {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController organizationController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController telNumberController = TextEditingController();
+  final TextEditingController customerNameController = TextEditingController();
+
+  Future<void> registerUser(BuildContext context) async {
+    final String url = 'https://mec3.cz/mec3mobile/UserMobile/CreateUser';
+    final Map<String, String> headers = {'Content-Type': 'application/json'};
+    final Map<String, dynamic> body = {
+      'OrganizationName': organizationController.text,
+      'CustomerName': customerNameController.text,
+      'Email': emailController.text,
+      'TelNumber': telNumberController.text,
+      'UserName': usernameController.text,
+      'Password': passwordController.text,
+    };
+
+    final http.Response response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: jsonEncode(body),
+    );
+
+    if (response.statusCode == 200) {
+      // Registration successful, show success snackbar and navigate back to LandingPage
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Registrace proběhla úspěšně.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+      Navigator.pop(context); // Navigate back to the landing page
+    } else {
+      // Registration failed, show error snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Registrace selhala. Zkontrolujte své údaje.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+      print('Registration failed. Status code: ${response.statusCode}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +82,7 @@ class RegisterPage extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: customerNameController,
                 decoration: InputDecoration(
                   labelText: 'Jméno uživatele',
                   contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -39,6 +90,7 @@ class RegisterPage extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Heslo',
@@ -47,6 +99,7 @@ class RegisterPage extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: organizationController,
                 decoration: InputDecoration(
                   labelText: 'Název organizace',
                   contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -54,6 +107,7 @@ class RegisterPage extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'E-mailová adresa',
                   contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -61,6 +115,7 @@ class RegisterPage extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: telNumberController,
                 decoration: InputDecoration(
                   labelText: 'Telefonní číslo',
                   contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -68,25 +123,16 @@ class RegisterPage extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
                   contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
                 ),
               ),
               SizedBox(height: 16.0),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Heslo',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
-                ),
-              ),
-              SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
-                  // Registration logic
-                  // For simplicity, navigate back to the landing page
-                  Navigator.pop(context);
+                  registerUser(context);
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFFA3AE03),

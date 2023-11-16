@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mec3mobileflutter/components/landingPageCard.dart';
 import 'package:mec3mobileflutter/models/LandingPageCardModel.dart';
 import 'package:mec3mobileflutter/views/LoginPage.dart';
+import 'package:mec3mobileflutter/views/SettingsPage.dart';
 
 class LandingPage extends StatelessWidget {
   @override
@@ -10,15 +11,27 @@ class LandingPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(''),
         leading: IconButton(
-          icon: Icon(Icons.person), // You can change the icon as needed
+          icon: Icon(Icons.person),
           onPressed: () {
-            // Navigate to LoginPage when the icon is pressed
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => LoginPage()),
             );
           },
         ),
+        actions: [
+          // Přidání další ikonky na pravou stranu AppBar
+          IconButton(
+            icon: Icon(Icons.settings), // Můžete změnit ikonu podle potřeby
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsPage()),
+              );
+              // Zde přidejte funkcionalitu, kterou chcete spustit po stisknutí ikony
+            },
+          ),
+        ],
       ),
       body: GridView.count(
         crossAxisCount: 2,
