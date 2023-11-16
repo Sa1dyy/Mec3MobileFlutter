@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mec3mobileflutter/components/landingPageCard.dart';
+import 'package:mec3mobileflutter/models/LandingPageCardModel.dart';
 
 import 'categoryPage.dart';
 
@@ -16,12 +17,12 @@ class LandingPage extends StatelessWidget {
         crossAxisSpacing: 10.0, 
         padding: EdgeInsets.all(10.0),
         children: [
-          LandingPageCard('Category 1', 'assets/category1.jpg'),
-          LandingPageCard('Category 2', 'assets/category2.jpg'),
-          LandingPageCard('Category 3', 'assets/category3.jpg'),
-          LandingPageCard('Category 4', 'assets/category4.jpg'),
-          LandingPageCard('Category 5', 'assets/category5.jpg'),
-          LandingPageCard('Category 6', 'assets/category6.jpg'),
+          LandingPageCard(new LandingPageCardModel(id: 100, name: 'Kopečková zmrzlina', image: 'assets/icecream1.png')),               
+          LandingPageCard(new LandingPageCardModel(id: 200, name: 'Točená zmrzlina', image: 'assets/icecream2.png')),
+          LandingPageCard(new LandingPageCardModel(id: 400, name: 'Cukrařina', image: 'assets/cake.png')),
+          LandingPageCard(new LandingPageCardModel(id: 600, name: 'Kakao a čokoláda', image: 'assets/chocolate.png')),
+          LandingPageCard(new LandingPageCardModel(id: 700, name: 'Servisní položky', image: 'assets/dough.png')),
+          LandingPageCard(new LandingPageCardModel(id: 900, name: 'Eshop', image: 'assets/cart_empty.png')),
         ],
       ),
     );

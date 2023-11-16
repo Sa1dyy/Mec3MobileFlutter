@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import '../views/categoryPage.dart'; 
+import '../models/LandingPageCardModel.dart';
+import '../views/categoryPage.dart';
 
 class LandingPageCard extends StatelessWidget {
-  final String categoryName;
-  final String imagePath;
+  final LandingPageCardModel cardModel;
 
-  LandingPageCard(this.categoryName, this.imagePath);
+  LandingPageCard(this.cardModel);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+
+        print('Dlaždice s názvem ${cardModel.name} byla klepnuta!');
+
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CategoryPage(categoryName),
+            builder: (context) => CategoryPage(cardModel.name),
           ),
         );
       },
@@ -23,25 +26,33 @@ class LandingPageCard extends StatelessWidget {
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.black,
+            color: Color(0xFFA3AE03), // Barva rámečku
             width: 2.0,
           ),
+          color: Colors.white, // Barva pozadí
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: Stack(
           children: [
             Image.asset(
-              imagePath,
+              cardModel.image,
               height: 100.0,
               width: 100.0,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 8.0),
-            Text(
-              categoryName,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: Color(0xFFA3AE03), 
+                child: Text(
+                  cardModel.name,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ],
