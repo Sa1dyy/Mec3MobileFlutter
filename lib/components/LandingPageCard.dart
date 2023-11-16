@@ -5,7 +5,7 @@ import '../views/categoryPage.dart';
 class LandingPageCard extends StatelessWidget {
   final LandingPageCardModel cardModel;
 
-  LandingPageCard(this.cardModel);
+  const LandingPageCard(this.cardModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
