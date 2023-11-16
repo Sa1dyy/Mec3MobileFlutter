@@ -84,6 +84,7 @@ flutter:
   - assets/trash.png
   - assets/user.png
   - assets/user2Logged.png
+  - assets/mec3fixed.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
