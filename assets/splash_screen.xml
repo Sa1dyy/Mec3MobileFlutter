@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<layer-list xmlns:android = "http://schemas.android.com/apk/res/android">
+	<item>
+		<color android:color = "@color/splash_background"/>
+	</item>
+
+
+	
+	
+<item
+	android:height="110dp"
+android:width="300dp"
+android:gravity="center_horizontal|center_vertical"
+
+>
+    <bitmap
+         
+        android:src="@drawable/splashIconn" />
+</item>
+
+
+</layer-list>
