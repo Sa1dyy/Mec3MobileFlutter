@@ -9,9 +9,8 @@ class LoginPage extends StatelessWidget {
         title: Text(''),
         actions: [
           IconButton(
-            icon: Icon(Icons.home), // Ikona pro domovskou stránku
+            icon: Icon(Icons.home),
             onPressed: () {
-              // Přejít na LandingPage při kliknutí na ikonu domovské stránky
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => LandingPage()),
@@ -20,32 +19,56 @@ class LoginPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/mec3fixed.png', // Cesta k obrázku
-            height: 80.0, // Nastavte výšku obrázku podle potřeby
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 50.0), // Adjust the top padding as needed
+        child: Padding(
+          padding: const EdgeInsets.all(26.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/mec3fixed.png',
+                height: 80.0,
+              ),
+              SizedBox(height: 16.0),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Přihlašovací jméno',
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+                ),
+              ),
+              SizedBox(height: 16.0),
+              TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Heslo',
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+                ),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  // Přihlašovací logika
+                  // Pro jednoduchost přejděte zpět na úvodní stránku
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFA3AE03), // Background color
+                  onPrimary: Colors.white, // Text color
+                  padding: EdgeInsets.all(16.0), // Button padding
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(8.0), // Button border radius
+                  ),
+                ),
+                child: Text(
+                  'Přihlásit se',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 16.0),
-          TextField(
-            decoration: InputDecoration(labelText: 'Username'),
-          ),
-          SizedBox(height: 16.0),
-          TextField(
-            obscureText: true,
-            decoration: InputDecoration(labelText: 'Password'),
-          ),
-          SizedBox(height: 16.0),
-          ElevatedButton(
-            onPressed: () {
-              // Provést přihlašovací logiku zde
-              // Pro jednoduchost přejděte zpět na úvodní stránku
-              Navigator.pop(context);
-            },
-            child: Text('Login'),
-          ),
-        ],
+        ),
       ),
     );
   }
