@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:mec3mobileflutter/components/landingPageCard.dart';
 import 'package:mec3mobileflutter/models/LandingPageCardModel.dart';
+import 'package:mec3mobileflutter/settings/AppState.dart';
+import 'package:mec3mobileflutter/views/LoginPage.dart';
+import 'package:mec3mobileflutter/views/NewsPage.dart';
+import 'package:mec3mobileflutter/views/SettingsPage.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
+
+  bool isUserLogged() {
+    if (AppState.isLogged == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   List<Widget> buildLandingPageCards() {
     List<LandingPageCardModel> cardModels = [
@@ -29,6 +41,8 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLogged = isUserLogged();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF262626),
@@ -36,13 +50,19 @@ class LandingPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.person),
           iconSize: 40,
-          onPressed: () {},
+          color: isLogged ? Color(0xFFA3AE03) : Colors.white,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
+          },
         ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/mec3logo.png',
+              'assets/mec3fixed.png',
               height: 60,
             ),
           ],
@@ -51,7 +71,13 @@ class LandingPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             iconSize: 40,
-            onPressed: () {},
+            color: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsPage()),
+              );
+            },
           ),
         ],
       ),
@@ -66,24 +92,32 @@ class LandingPage extends StatelessWidget {
               children: buildLandingPageCards(),
             ),
           ),
-          Container(
-            width: 250,
-            margin: EdgeInsets.only(
-                bottom:
-                    MediaQuery.of(context).size.height * 0.03), // Úprava zde
-            decoration: const BoxDecoration(
-              color: Color(0xFFA3AE03),
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NewsPage()),
+              );
+            },
+            child: Container(
+              width: 250,
+              margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.03,
               ),
-            ),
-            padding: const EdgeInsets.all(15.0),
-            child: const Text(
-              'Novinky',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFA3AE03),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15),
+                ),
+              ),
+              padding: EdgeInsets.all(15.0),
+              child: Text(
+                'Novinky',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
               ),
             ),
           ),

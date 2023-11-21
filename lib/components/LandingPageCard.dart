@@ -14,7 +14,7 @@ class LandingPageCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CategoryPage(cardModel.name),
+            builder: (context) => CategoryPage(cardModel.name, cardModel.id),
           ),
         );
       },
@@ -39,7 +39,7 @@ class LandingPageCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10), 
+            const SizedBox(height: 10),
             Expanded(
               child: Container(
                 color: const Color(0xFFA3AE03),

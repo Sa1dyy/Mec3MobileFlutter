@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mec3mobileflutter/settings/AppState.dart';
 import 'views/LandingPage.dart';
 
 void main() async {
@@ -29,6 +30,7 @@ class Mec3MobileFlutter extends StatelessWidget {
       title: 'Mec3',
       theme: ThemeData(
         primarySwatch: primarySwatchColor,
+        brightness: Brightness.light,
       ),
       home: LandingPage(),
     );
