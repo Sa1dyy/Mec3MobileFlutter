@@ -32,6 +32,10 @@ dependencies:
     sdk: flutter
   url_launcher: ^6.0.6
   http: ^0.13.3
+  connectivity: ^3.0.6
+  shared_preferences: ^2.0.7
+  flutter_pdfview: ^1.0.2
+  
   
 
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mec3mobileflutter/models/UserModel.dart';
-import 'package:mec3mobileflutter/settings/AppState.dart';
+import 'package:mec3mobileflutter/config/AppState.dart';
 import 'package:mec3mobileflutter/views/LandingPage.dart';
 
 class UserInformationPage extends StatelessWidget {
@@ -38,10 +38,10 @@ class UserInformationPage extends StatelessWidget {
 
             ElevatedButton(
               onPressed: () {
-                // Add the functionality you want when the button is clicked
-                // For example, set the app state and show a SnackBar.
+            
                 AppState.isLogged = false;
                 AppState.user = UserModel(
+                  id: 0,
                   organizationName: "",
                   customerName: "",
                   email: "",
@@ -54,7 +54,6 @@ class UserInformationPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => LandingPage()),
                 );
 
-                // Show a SnackBar with a message
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Odhlášení proběhlo úspěšně.'),
@@ -75,9 +74,7 @@ class UserInformationPage extends StatelessWidget {
                 style: TextStyle(fontSize: 18.0),
               ),
             ),
-            // You might not want to display the password for security reasons
-            // Text('Password: ${AppState.user.password}'),
-            // Add more widgets to display other user information as needed
+           
           ],
         ),
       ),

@@ -1,10 +1,9 @@
-// existing_file.dart
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mec3mobileflutter/views/LandingPage.dart';
-import 'package:mec3mobileflutter/views/NewsDeatilPage.dart';
+import 'package:mec3mobileflutter/views/NewsDetailPage.dart';
 
 class NewsPage extends StatefulWidget {
   @override

@@ -1,20 +1,69 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mec3mobileflutter/components/landingPageCard.dart';
 import 'package:mec3mobileflutter/models/LandingPageCardModel.dart';
-import 'package:mec3mobileflutter/settings/AppState.dart';
+import 'package:mec3mobileflutter/config/AppState.dart';
 import 'package:mec3mobileflutter/views/LoginPage.dart';
 import 'package:mec3mobileflutter/views/NewsPage.dart';
 import 'package:mec3mobileflutter/views/SettingsPage.dart';
+import 'package:connectivity/connectivity.dart';
 
-class LandingPage extends StatelessWidget {
-  const LandingPage({super.key});
+class LandingPage extends StatefulWidget {
+  const LandingPage({Key? key}) : super(key: key);
+
+  @override
+  _LandingPageState createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+  bool isLogged = false;
+  bool isOnline = true;
+  late StreamSubscription<ConnectivityResult> subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnectivity();
+    subscription = Connectivity().onConnectivityChanged.listen(
+      (ConnectivityResult result) {
+        setState(() {
+          bool wasOnline = isOnline;
+          isOnline = result != ConnectivityResult.none;
+
+          if (!wasOnline && isOnline) {
+           // showInternetRestoredMessage();
+          }
+        });
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
+  }
+
+  Future<void> checkConnectivity() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    setState(() {
+      isOnline = connectivityResult != ConnectivityResult.none;
+    });
+  }
 
   bool isUserLogged() {
-    if (AppState.isLogged == true) {
-      return true;
-    } else {
-      return false;
-    }
+    return AppState.isLogged == true;
+  }
+
+  void showInternetRestoredMessage() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Připojení k internetu obnoveno!'),
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.green,
+      ),
+    );
   }
 
   List<Widget> buildLandingPageCards() {
@@ -41,7 +90,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLogged = isUserLogged();
+    isLogged = isUserLogged();
 
     return Scaffold(
       appBar: AppBar(
@@ -83,6 +132,18 @@ class LandingPage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Container(
+            color: isOnline ? Colors.transparent : Colors.red,
+            height: 30, 
+            child: Center(
+              child: Text(
+                isOnline ? '' : 'Nejste připojeni k internetu',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
           Expanded(
             child: GridView.count(
               crossAxisCount: 2,

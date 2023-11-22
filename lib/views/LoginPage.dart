@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mec3mobileflutter/settings/AppState.dart';
+import 'package:mec3mobileflutter/config/AppState.dart';
 import 'package:mec3mobileflutter/views/LandingPage.dart';
 import 'package:mec3mobileflutter/views/RegisterPage.dart';
 import 'package:mec3mobileflutter/views/UserInformationPage.dart';
@@ -29,6 +29,7 @@ class LoginPage extends StatelessWidget {
 
       if (responseData['customerId'] != null) {
         AppState.isLogged = true;
+        AppState.user.id = responseData["customerId"];
         AppState.user.customerName = responseData["customerName"];
         AppState.user.userName = responseData["userName"];
         AppState.user.email = responseData["userEmail"];
@@ -47,7 +48,6 @@ class LoginPage extends StatelessWidget {
           MaterialPageRoute(builder: (context) => LandingPage()),
         );
       } else {
-        // Handle null UserName or Password in response
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Přihlášení selhalo. Zkontrolujte své údaje.'),
@@ -58,7 +58,6 @@ class LoginPage extends StatelessWidget {
         print('Login failed. Null UserName or Password in response.');
       }
     } else {
-      // Handle login error, show error snackbar
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Přihlášení selhalo. Zkontrolujte své údaje.'),
@@ -73,11 +72,11 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (AppState.isLogged) {
-      return UserInformationPage(); // Create a UserInformationPage widget to display user information
+      return UserInformationPage(); 
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: Text(''),
+        
           actions: [
             IconButton(
               icon: Icon(Icons.home),

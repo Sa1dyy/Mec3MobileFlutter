@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mec3mobileflutter/models/UserModel.dart';
-import 'package:mec3mobileflutter/settings/AppState.dart';
+import 'package:mec3mobileflutter/config/AppState.dart';
 import 'package:mec3mobileflutter/views/LandingPage.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -48,10 +48,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Add the functionality you want when the button is clicked
-                    // For example, set the app state and show a SnackBar.
+                    
                     AppState.isLogged = false;
                     AppState.user = UserModel(
+                      id: 0,
                       organizationName: "",
                       customerName: "",
                       email: "",
@@ -64,7 +64,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       MaterialPageRoute(builder: (context) => LandingPage()),
                     );
 
-                    // Show a SnackBar with a message
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Odhlášení proběhlo úspěšně.'),
@@ -114,10 +113,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         });
 
                         if (switchValue) {
-                          // Call the first method or perform the desired action
                           method1();
                         } else {
-                          // Call the second method or perform the desired action
                           method2();
                         }
                       },
@@ -149,14 +146,12 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void method1() {
-    // Add functionality for the first method
     setState(() {
       AppState.brightnessMode = Brightness.light;
     });
   }
 
   void method2() {
-    // Add functionality for the second method
     setState(() {
       AppState.brightnessMode = Brightness.dark;
     });

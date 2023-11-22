@@ -1,4 +1,5 @@
 class UserModel {
+  int id;
   String organizationName;
   String customerName;
   String email;
@@ -7,6 +8,7 @@ class UserModel {
   String password;
 
   UserModel({
+    required this.id,
     required this.organizationName,
     required this.customerName,
     required this.email,

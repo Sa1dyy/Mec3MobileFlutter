@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mec3mobileflutter/views/EshopPage.dart';
 import '../models/LandingPageCardModel.dart';
 import '../views/categoryPage.dart';
 
@@ -11,12 +12,24 @@ class LandingPageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        if(cardModel.id != 900){
+
+   Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CategoryPage(cardModel.name, cardModel.id),
+            builder: (context) => CategoryPage( cardModel.id),
           ),
         );
+        } else{
+   Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EshopPage(),
+          ),
+        );
+
+        }
+     
       },
       child: Container(
         margin: const EdgeInsets.all(5.0),

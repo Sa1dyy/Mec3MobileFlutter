@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mec3mobileflutter/settings/AppState.dart';
+import 'package:mec3mobileflutter/config/AppState.dart';
 import 'views/LandingPage.dart';
 
 void main() async {

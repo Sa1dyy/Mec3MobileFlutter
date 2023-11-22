@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mec3mobileflutter/settings/AppState.dart';
+import 'package:mec3mobileflutter/config/AppState.dart';
 import 'package:mec3mobileflutter/views/LandingPage.dart';
 import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
@@ -52,6 +52,17 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
     return AppState.isLogged == true;
   }
 
+  void showPdf(List<dynamic>? documents){
+          if ( documents != null &&
+                                      documents.isNotEmpty) {
+                                    String pdfUrl = documents[0]['Url'];
+                                    launch(pdfUrl);
+                                  } else {
+                                    print(
+                                        'No documents available for this product.');
+                                  }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +104,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                     padding: EdgeInsets.symmetric(vertical: 8),
                     child: Visibility(
                       visible: !isUserLogged(),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'Nepřihlášený uživatel - nelze zobrazit specifikace produktů',
                           style: TextStyle(
@@ -161,7 +172,19 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                           margin: EdgeInsets.all(8),
                           child: ListTile(
                             title: Text(product['Name']),
-                            subtitle: Text(product['Description']),
+                            subtitle: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(product['Description']),
+       Padding(
+         padding: const EdgeInsets.only(top:8.0),
+         child: Text(product['PartNumber'],
+            style: TextStyle(fontSize: 12, color: Colors.grey),
+          ),
+       ),
+      ],
+    ),
+                            
                             trailing: Visibility(
                               visible: isUserLogged() &&
                                   documents != null &&
@@ -169,20 +192,11 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                               child: IconButton(
                                 icon: Icon(Icons.picture_as_pdf),
                                 onPressed: () {
-                                  if (documents != null &&
-                                      documents.isNotEmpty) {
-                                    String pdfUrl = documents[0]['Url'];
-                                    launch(pdfUrl);
-                                  } else {
-                                    print(
-                                        'No documents available for this product.');
-                                  }
+                                 showPdf(documents);
                                 },
                               ),
                             ),
-                            onTap: () {
-                              // Navigate to the product detail page if needed
-                            },
+                           
                           ),
                         );
                       },
@@ -196,3 +210,5 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
     );
   }
 }
+
+

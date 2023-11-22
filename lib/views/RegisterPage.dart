@@ -30,7 +30,6 @@ class RegisterPage extends StatelessWidget {
     );
 
     if (response.statusCode == 200) {
-      // Registration successful, show success snackbar and navigate back to LandingPage
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Registrace proběhla úspěšně.'),
@@ -38,9 +37,8 @@ class RegisterPage extends StatelessWidget {
         ),
       );
 
-      Navigator.pop(context); // Navigate back to the landing page
+      Navigator.pop(context); 
     } else {
-      // Registration failed, show error snackbar
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Registrace selhala. Zkontrolujte své údaje.'),
