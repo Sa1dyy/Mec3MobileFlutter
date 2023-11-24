@@ -37,7 +37,7 @@ class RegisterPage extends StatelessWidget {
         ),
       );
 
-      Navigator.pop(context); 
+      Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

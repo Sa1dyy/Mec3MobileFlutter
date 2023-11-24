@@ -31,9 +31,7 @@ class _LandingPageState extends State<LandingPage> {
           bool wasOnline = isOnline;
           isOnline = result != ConnectivityResult.none;
 
-          if (!wasOnline && isOnline) {
-           // showInternetRestoredMessage();
-          }
+          if (!wasOnline && isOnline) {}
         });
       },
     );
@@ -134,7 +132,7 @@ class _LandingPageState extends State<LandingPage> {
         children: [
           Container(
             color: isOnline ? Colors.transparent : Colors.red,
-            height: 30, 
+            height: 30,
             child: Center(
               child: Text(
                 isOnline ? '' : 'Nejste připojeni k internetu',

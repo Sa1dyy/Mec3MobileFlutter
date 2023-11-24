@@ -14,6 +14,18 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isToggleOn = false;
   bool switchValue = false;
 
+  void switchMethod1() {
+    setState(() {
+      AppState.brightnessMode = Brightness.light;
+    });
+  }
+
+  void switchMethod2() {
+    setState(() {
+      AppState.brightnessMode = Brightness.dark;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +60,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    
                     AppState.isLogged = false;
                     AppState.user = UserModel(
                       id: 0,
@@ -113,9 +124,9 @@ class _SettingsPageState extends State<SettingsPage> {
                         });
 
                         if (switchValue) {
-                          method1();
+                          switchMethod1();
                         } else {
-                          method2();
+                          switchMethod2();
                         }
                       },
                       activeColor: Color(0xFFA3AE03),
@@ -143,17 +154,5 @@ class _SettingsPageState extends State<SettingsPage> {
         ],
       ),
     );
-  }
-
-  void method1() {
-    setState(() {
-      AppState.brightnessMode = Brightness.light;
-    });
-  }
-
-  void method2() {
-    setState(() {
-      AppState.brightnessMode = Brightness.dark;
-    });
   }
 }

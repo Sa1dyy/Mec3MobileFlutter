@@ -4,6 +4,30 @@ import 'package:mec3mobileflutter/config/AppState.dart';
 import 'package:mec3mobileflutter/views/LandingPage.dart';
 
 class UserInformationPage extends StatelessWidget {
+  void logOut(context) {
+    AppState.isLogged = false;
+    AppState.user = UserModel(
+      id: 0,
+      organizationName: "",
+      customerName: "",
+      email: "",
+      telNumber: "",
+      userName: "",
+      password: "",
+    );
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LandingPage()),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Odhlášení proběhlo úspěšně.'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,31 +59,9 @@ class UserInformationPage extends StatelessWidget {
             Text('Email: ${AppState.user.email}'),
             Text('Username: ${AppState.user.userName}'),
             SizedBox(height: 25.0),
-
             ElevatedButton(
               onPressed: () {
-            
-                AppState.isLogged = false;
-                AppState.user = UserModel(
-                  id: 0,
-                  organizationName: "",
-                  customerName: "",
-                  email: "",
-                  telNumber: "",
-                  userName: "",
-                  password: "",
-                );
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LandingPage()),
-                );
-
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Odhlášení proběhlo úspěšně.'),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
+                logOut(context);
               },
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFFA3AE03),
@@ -74,7 +76,6 @@ class UserInformationPage extends StatelessWidget {
                 style: TextStyle(fontSize: 18.0),
               ),
             ),
-           
           ],
         ),
       ),

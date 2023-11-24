@@ -120,95 +120,18 @@ class _EshopPageState extends State<EshopPage> {
     return productList;
   }
 
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Eshop - Oblíbené'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              _showFilterSortPanel(context);
-            },
-          ),
-          if (!widget.isSubcategory)
-            PopupMenuButton<String>(
-              onSelected: (value) {
-                // Handle category selection
-                selectCategory(value);
-              },
-              itemBuilder: (BuildContext context) {
-                return buildCategoriesPopupMenuItems(categories);
-              },
-            ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: _buildShowInStockSwitch(),
-          ),
-          isLoading
-              ? CircularProgressIndicator()
-              : Expanded(
-                  child: Container(
-                    constraints: BoxConstraints(maxHeight: 400),
-                    child: ListView.builder(
-                      itemCount: sortProducts(
-                              filterProducts(filterController.text),
-                              selectedSortCriteria)
-                          .length,
-                      itemBuilder: (context, index) {
-                        final product = sortProducts(
-                            filterProducts(filterController.text),
-                            selectedSortCriteria)[index];
-
-                        if (showInStockOnly && !product['IsOnStock']) {
-                          return Container();
-                        }
-
-                        return EshopCard(
-                          product: product,
-                          onPdfPressed: () {
-                            showPdf(product['Documents']);
-                          },
-                          onAddToCartPressed: () {
-                            _addToCart(product);
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CartPage()),
-          );
-        },
-        child: Icon(Icons.shopping_cart),
-      ),
-    );
-  }
-
   void _showFilterSortPanel(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return buildFilterSortPanel(categories);
+        return FilterPanel(categories);
       },
     ).then((value) {
-      setState(() {
-        // Handle any value returned from the bottom sheet
-      });
+      setState(() {});
     });
   }
 
-  Widget buildFilterSortPanel(List<Map<String, dynamic>> categories) {
+  Widget FilterPanel(List<Map<String, dynamic>> categories) {
     return Container(
       padding: EdgeInsets.all(8.0),
       child: Column(
@@ -251,13 +174,12 @@ class _EshopPageState extends State<EshopPage> {
     );
   }
 
-  List<PopupMenuItem<String>> buildCategoriesPopupMenuItems(
+  List<PopupMenuItem<String>> categoriesPopupMenuItems(
       List<Map<String, dynamic>> categories) {
     List<PopupMenuItem<String>> menuItems = [];
 
     for (var category in categories) {
       if (category['ParentID'] == null) {
-        // Main category
         menuItems.add(
           PopupMenuItem<String>(
             value: category['Name'],
@@ -319,7 +241,7 @@ class _EshopPageState extends State<EshopPage> {
     Navigator.pop(context);
   }
 
-  Widget _buildShowInStockSwitch() {
+  Widget inStockSwitch() {
     return Row(
       children: [
         Text('Pouze skladem'),
@@ -357,12 +279,86 @@ class _EshopPageState extends State<EshopPage> {
     );
   }
 
-  void _addToCart(Map<String, dynamic> product) {
+  void addToCart(Map<String, dynamic> product) {
     AppState.cartItems.add(product);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('${product['Name']} - přidáno do košíku!'),
+      ),
+    );
+  }
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Eshop'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              _showFilterSortPanel(context);
+            },
+          ),
+          if (!widget.isSubcategory)
+            PopupMenuButton<String>(
+              onSelected: (value) {
+                selectCategory(value);
+              },
+              itemBuilder: (BuildContext context) {
+                return categoriesPopupMenuItems(categories);
+              },
+            ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: inStockSwitch(),
+          ),
+          isLoading
+              ? CircularProgressIndicator()
+              : Expanded(
+                  child: Container(
+                    constraints: BoxConstraints(maxHeight: 400),
+                    child: ListView.builder(
+                      itemCount: sortProducts(
+                              filterProducts(filterController.text),
+                              selectedSortCriteria)
+                          .length,
+                      itemBuilder: (context, index) {
+                        final product = sortProducts(
+                            filterProducts(filterController.text),
+                            selectedSortCriteria)[index];
+
+                        if (showInStockOnly && !product['IsOnStock']) {
+                          return Container();
+                        }
+
+                        return EshopCard(
+                          product: product,
+                          onPdfPressed: () {
+                            showPdf(product['Documents']);
+                          },
+                          onAddToCartPressed: () {
+                            addToCart(product);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CartPage()),
+          );
+        },
+        child: Icon(Icons.shopping_cart),
       ),
     );
   }

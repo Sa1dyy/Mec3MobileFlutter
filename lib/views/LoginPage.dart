@@ -72,11 +72,10 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (AppState.isLogged) {
-      return UserInformationPage(); 
+      return UserInformationPage();
     } else {
       return Scaffold(
         appBar: AppBar(
-        
           actions: [
             IconButton(
               icon: Icon(Icons.home),

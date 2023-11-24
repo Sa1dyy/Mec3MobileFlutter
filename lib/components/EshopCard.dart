@@ -55,8 +55,8 @@ class EshopCard extends StatelessWidget {
                     icon: Icon(Icons.shopping_cart),
                     label: Text('Přidat do košíku'),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white, // Transparent background
-                      onPrimary: Colors.black, // Text color
+                      primary: Colors.white,
+                      onPrimary: Colors.black,
                     ),
                   ),
               ],

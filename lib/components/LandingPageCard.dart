@@ -32,16 +32,16 @@ class LandingPageCard extends StatelessWidget {
         margin: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           border: Border.all(
-            color: const Color(0xFFA3AE03), // Barva rámečku
+            color: const Color(0xFFA3AE03),
             width: 2.0,
           ),
-          color: Colors.white, // Barva pozadí
+          color: Colors.white,
         ),
         child: Column(
           children: [
             Container(
-              height: 100.0, // výška obrázku
-              width: 100.0, // šířka obrázku
+              height: 100.0,
+              width: 100.0,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(cardModel.image),
