@@ -12,24 +12,21 @@ class LandingPageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if(cardModel.id != 900){
-
-   Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CategoryPage( cardModel.id),
-          ),
-        );
-        } else{
-   Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => EshopPage(),
-          ),
-        );
-
+        if (cardModel.id != 900) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CategoryPage(cardModel.id),
+            ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EshopPage(false),
+            ),
+          );
         }
-     
       },
       child: Container(
         margin: const EdgeInsets.all(5.0),

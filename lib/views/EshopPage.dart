@@ -7,6 +7,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
 
 class EshopPage extends StatefulWidget {
+  final bool isSubcategory;
+
+  EshopPage(this.isSubcategory);
+
   @override
   _EshopPageState createState() => _EshopPageState();
 }
@@ -33,9 +37,23 @@ class _EshopPageState extends State<EshopPage> {
     });
 
     try {
-      final response = await http.get(Uri.parse(
-          'https://mec3.cz/mec3mobile/ProductMobile/GetFavoritesForUser/' +
-              AppState.user.id.toString()));
+      final uri = widget.isSubcategory
+          ? Uri.parse(
+              'https://mec3.cz/mec3mobile/ProductMobile/GetEshopSubcategoryProducts')
+          : Uri.parse(
+              'https://mec3.cz/mec3mobile/ProductMobile/GetFavoritesForUser/' +
+                  AppState.user.id.toString());
+
+      final response = widget.isSubcategory
+          ? await http.post(
+              uri,
+              headers: {'Content-Type': 'application/json'},
+              body: jsonEncode({
+                'articleID': 201,
+                'customerID': AppState.user.id,
+              }),
+            )
+          : await http.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body)['Data'];
@@ -53,21 +71,23 @@ class _EshopPageState extends State<EshopPage> {
       });
     }
 
-    try {
-      final response = await http.get(Uri.parse(
-          'https://mec3.cz/mec3mobile/ProductMobile/GetCategoriesForUser/' +
-              AppState.user.id.toString()));
+    if (!widget.isSubcategory) {
+      try {
+        final response = await http.get(Uri.parse(
+            'https://mec3.cz/mec3mobile/ProductMobile/GetCategoriesForUser/' +
+                AppState.user.id.toString()));
 
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body)['Data'];
-        setState(() {
-          categories = List<Map<String, dynamic>>.from(data);
-        });
-      } else {
-        throw Exception('Failed to load categories');
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body)['Data'];
+          setState(() {
+            categories = List<Map<String, dynamic>>.from(data);
+          });
+        } else {
+          throw Exception('Failed to load categories');
+        }
+      } catch (error) {
+        print('Error fetching categories: $error');
       }
-    } catch (error) {
-      print('Error fetching categories: $error');
     }
   }
 
@@ -111,15 +131,16 @@ class _EshopPageState extends State<EshopPage> {
               _showFilterSortPanel(context);
             },
           ),
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              // Handle category selection
-              selectCategory(value);
-            },
-            itemBuilder: (BuildContext context) {
-              return buildCategoriesPopupMenuItems(categories);
-            },
-          ),
+          if (!widget.isSubcategory)
+            PopupMenuButton<String>(
+              onSelected: (value) {
+                // Handle category selection
+                selectCategory(value);
+              },
+              itemBuilder: (BuildContext context) {
+                return buildCategoriesPopupMenuItems(categories);
+              },
+            ),
         ],
       ),
       body: Column(
@@ -244,9 +265,8 @@ class _EshopPageState extends State<EshopPage> {
               category['Name'],
               style: TextStyle(
                 fontSize: 20,
-                fontWeight:
-                    FontWeight.bold, // Add bold font for main categories
-                color: Color(0xFFA3AE03), // Set color for main categories
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFA3AE03),
               ),
             ),
           ),
@@ -261,12 +281,9 @@ class _EshopPageState extends State<EshopPage> {
                   padding: EdgeInsets.only(left: 20.0),
                   child: Row(
                     children: [
-                      Icon(Icons.arrow_forward), // Add a small arrow icon
-                      SizedBox(
-                          width:
-                              10), // Add some space between the arrow and text
+                      Icon(Icons.arrow_forward),
+                      SizedBox(width: 10),
                       Expanded(
-                        // or Flexible
                         child: Text(
                           subcategory['Name'],
                           style: TextStyle(
@@ -292,7 +309,7 @@ class _EshopPageState extends State<EshopPage> {
   void selectCategory(dynamic category) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CartPage()),
+      MaterialPageRoute(builder: (context) => EshopPage(true)),
     );
   }
 
