@@ -4,8 +4,13 @@ import 'package:url_launcher/url_launcher.dart';
 class EshopCard extends StatelessWidget {
   final Map<String, dynamic> product;
   final VoidCallback? onPdfPressed;
+  final VoidCallback? onAddToCartPressed;
 
-  const EshopCard(this.product, {Key? key, this.onPdfPressed}) : super(key: key);
+  EshopCard({
+    required this.product,
+    this.onPdfPressed,
+    this.onAddToCartPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +25,59 @@ class EshopCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (product['IsFavourite'])
-              Row(
-                children: [
-                  Icon(Icons.favorite, color: Colors.blue),
-                  SizedBox(width: 5),
-                  Text('Oblíbené', style: TextStyle(color: Colors.blue)),
-                ],
-              ),
-            SizedBox(height: 8), // Mezera mezi ikonami a nadpisem
-            Text(product['Name'], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            SizedBox(height: 8), // Mezera mezi nadpisem a dalšími texty
+            Row(
+              children: [
+                if (product['IsFavourite'])
+                  InkWell(
+                    onTap: () {
+                      // Handle favorite button press
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.transparent,
+                      ),
+                      padding: EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          Icon(Icons.favorite, color: Color(0xFFA3AE03)),
+                          SizedBox(height: 5),
+                          Text('Oblíbené',
+                              style: TextStyle(color: Colors.black)),
+                        ],
+                      ),
+                    ),
+                  ),
+                SizedBox(width: 20),
+                if (onAddToCartPressed != null)
+                  ElevatedButton.icon(
+                    onPressed: onAddToCartPressed,
+                    icon: Icon(Icons.shopping_cart),
+                    label: Text('Přidat do košíku'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white, // Transparent background
+                      onPrimary: Colors.black, // Text color
+                    ),
+                  ),
+              ],
+            ),
+            SizedBox(height: 8),
+            Text(product['Name'],
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8),
             Text('Part Number: ${product['PartNumber']}'),
             Text('Measure Unit: ${product['MeasureUnit']}'),
             Text('Min Quantity: ${product['MinQuantity']}'),
-            SizedBox(height: 8), // Mezera před informací o skladovosti
+            SizedBox(height: 8),
+            Row(
+              children: [
+                if (onPdfPressed != null && hasValidPdfUrl)
+                  IconButton(
+                    icon: Icon(Icons.picture_as_pdf),
+                    onPressed: onPdfPressed,
+                  ),
+              ],
+            ),
             if (!product['IsOnStock'])
               Row(
                 children: [
@@ -43,11 +86,7 @@ class EshopCard extends StatelessWidget {
                   Text('Není skladem', style: TextStyle(color: Colors.red)),
                 ],
               ),
-            if (onPdfPressed != null && hasValidPdfUrl)
-              IconButton(
-                icon: Icon(Icons.picture_as_pdf),
-                onPressed: onPdfPressed,
-              ),
+            SizedBox(height: 8),
           ],
         ),
       ),

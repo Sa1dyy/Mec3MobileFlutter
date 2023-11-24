@@ -3,7 +3,7 @@ import 'package:mec3mobileflutter/models/UserModel.dart';
 
 class AppState {
   static UserModel user = UserModel(
-    id: 0,
+      id: 0,
       organizationName: "",
       customerName: "",
       email: "",
@@ -12,4 +12,5 @@ class AppState {
       password: "");
   static bool isLogged = false;
   static Brightness brightnessMode = Brightness.light;
+  static List<Map<String, dynamic>> cartItems = [];
 }
