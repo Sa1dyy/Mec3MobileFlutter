@@ -5,10 +5,9 @@ import 'package:mec3mobileflutter/views/CategoryDetailPage.dart';
 import 'package:mec3mobileflutter/views/LandingPage.dart';
 
 class CategoryPage extends StatefulWidget {
- 
   final int id;
 
-  CategoryPage( this.id);
+  CategoryPage(this.id);
 
   @override
   _CategoryPageState createState() => _CategoryPageState();
@@ -35,24 +34,22 @@ class _CategoryPageState extends State<CategoryPage> {
   }
 
   void navigateToDetailPage(int productId) {
-    if(widget.id==100 || widget.id == 400){
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CategoryPage(productId),
-      ),
-    );
-    }else{
- Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CategoryDetailPage(productId),
-      ),
-    );
+    if (widget.id == 100 || widget.id == 400) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CategoryPage(productId),
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CategoryDetailPage(productId),
+        ),
+      );
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +91,7 @@ class _CategoryPageState extends State<CategoryPage> {
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black, 
+                            color: Colors.black,
                           ),
                         ),
                         SizedBox(height: 8),
@@ -117,8 +114,8 @@ class _CategoryPageState extends State<CategoryPage> {
                         },
                         child: Container(
                           padding: EdgeInsets.all(8),
-                          margin: EdgeInsets.symmetric(
-                              vertical: 6, horizontal: 16),
+                          margin:
+                              EdgeInsets.symmetric(vertical: 6, horizontal: 16),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white,

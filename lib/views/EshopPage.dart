@@ -91,6 +91,40 @@ class _EshopPageState extends State<EshopPage> {
     }
   }
 
+  Future<void> _setFavoriteArticle(product) async {
+    final url =
+        'https://mec3.cz/mec3mobile/ProductMobile/SetFavouriteArticleMobile';
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'articleID': product["ID"],
+        'customerID': AppState.user.id,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      if (product["IsFavourite"] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${product['Name']} - odebráno z oblíbených'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${product['Name']} - přidáno do oblíbených'),
+          ),
+        );
+      }
+      final responseData = json.decode(response.body);
+      print('Set favorite success: $responseData');
+      fetchData(); // Aktualizujeme data po nastavení oblíbených položek
+    } else {
+      print('Failed to set favorite');
+    }
+  }
+
   void showPdf(List<dynamic>? documents) {
     if (documents != null && documents.isNotEmpty) {
       String pdfUrl = documents[0]['Url'];
@@ -289,6 +323,7 @@ class _EshopPageState extends State<EshopPage> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -343,6 +378,9 @@ class _EshopPageState extends State<EshopPage> {
                           },
                           onAddToCartPressed: () {
                             addToCart(product);
+                          },
+                          onFavoritePressed: () {
+                            _setFavoriteArticle(product);
                           },
                         );
                       },

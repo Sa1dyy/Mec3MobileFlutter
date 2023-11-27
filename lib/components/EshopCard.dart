@@ -5,11 +5,13 @@ class EshopCard extends StatelessWidget {
   final Map<String, dynamic> product;
   final VoidCallback? onPdfPressed;
   final VoidCallback? onAddToCartPressed;
+  final VoidCallback? onFavoritePressed; // Přidáno
 
   EshopCard({
     required this.product,
     this.onPdfPressed,
     this.onAddToCartPressed,
+    this.onFavoritePressed,
   });
 
   @override
@@ -29,9 +31,7 @@ class EshopCard extends StatelessWidget {
               children: [
                 if (product['IsFavourite'])
                   InkWell(
-                    onTap: () {
-                      // Handle favorite button press
-                    },
+                    onTap: onFavoritePressed, // Opraveno
                     child: Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -44,6 +44,26 @@ class EshopCard extends StatelessWidget {
                           SizedBox(height: 5),
                           Text('Oblíbené',
                               style: TextStyle(color: Colors.black)),
+                        ],
+                      ),
+                    ),
+                  ),
+                if (!product['IsFavourite'])
+                  InkWell(
+                    onTap: onFavoritePressed, // Opraveno
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.transparent,
+                      ),
+                      padding: EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          Icon(Icons.favorite_border,
+                              color: Color(0xFFA3AE03)), // Přidáno
+                          SizedBox(height: 5),
+                          Text('Přidat k oblíbeným',
+                              style: TextStyle(color: Colors.black)), // Přidáno
                         ],
                       ),
                     ),

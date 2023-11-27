@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mec3mobileflutter/config/AppState.dart';
 import 'package:mec3mobileflutter/views/EshopPage.dart';
 import '../models/LandingPageCardModel.dart';
 import '../views/categoryPage.dart';
@@ -20,12 +21,20 @@ class LandingPageCard extends StatelessWidget {
             ),
           );
         } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => EshopPage(false),
-            ),
-          );
+          if (AppState.isLogged) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EshopPage(false),
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Pro přístup do E-shopu se prosím přihlaste.'),
+              ),
+            );
+          }
         }
       },
       child: Container(
