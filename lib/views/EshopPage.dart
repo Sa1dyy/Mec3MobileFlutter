@@ -119,7 +119,7 @@ class _EshopPageState extends State<EshopPage> {
       }
       final responseData = json.decode(response.body);
       print('Set favorite success: $responseData');
-      fetchData(); // Aktualizujeme data po nastavení oblíbených položek
+      fetchData();
     } else {
       print('Failed to set favorite');
     }

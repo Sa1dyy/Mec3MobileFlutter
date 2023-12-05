@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "611264886046",
+    "project_id": "flutter-mec3",
+    "storage_bucket": "flutter-mec3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611264886046:android:46454bae515c311d6ec50f",
+        "android_client_info": {
+          "package_name": "com.example.mec3mobileflutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSkYup7BxGJlwe7DLBTBcPT8AnBbD1NZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
