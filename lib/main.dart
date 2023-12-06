@@ -1,12 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mec3mobileflutter/api/FirebaseApi.dart';
 import 'package:mec3mobileflutter/config/AppState.dart';
 import 'package:mec3mobileflutter/firebase_options.dart';
+import 'package:mec3mobileflutter/views/NewsPage.dart';
 import 'views/LandingPage.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseApi().initNotifcations();
   runApp(const Mec3MobileFlutter());
 }
 
@@ -36,6 +41,8 @@ class Mec3MobileFlutter extends StatelessWidget {
         brightness: Brightness.light,
       ),
       home: LandingPage(),
+      navigatorKey: navigatorKey,
+      routes: {'notification_screen': ((context) => NewsPage())},
     );
   }
 }
