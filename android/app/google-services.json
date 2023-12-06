@@ -1,26 +1,79 @@
 {
   "project_info": {
-    "project_number": "611264886046",
-    "project_id": "flutter-mec3",
-    "storage_bucket": "flutter-mec3.appspot.com"
+    "project_number": "1026429831112",
+    "project_id": "mec3-mobile",
+    "storage_bucket": "mec3-mobile.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:611264886046:android:46454bae515c311d6ec50f",
+        "mobilesdk_app_id": "1:1026429831112:android:09e47e7ff05560da7262fd",
         "android_client_info": {
           "package_name": "com.example.mec3mobileflutter"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1026429831112-tkr53689n45ugb6tkd3ko33f01jfmlk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBSkYup7BxGJlwe7DLBTBcPT8AnBbD1NZ8"
+          "current_key": "AIzaSyCNE8LhtYBUhfQy1bh273FZFXkrTaLaNI4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026429831112-tkr53689n45ugb6tkd3ko33f01jfmlk0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1026429831112-s5c0tct3elrkrk6328pdqoodutf0rk95.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nl.hedr.mec3"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026429831112:android:25e61520d4381f487262fd",
+        "android_client_info": {
+          "package_name": "cz.hedr.mec3mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026429831112-tkr53689n45ugb6tkd3ko33f01jfmlk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNE8LhtYBUhfQy1bh273FZFXkrTaLaNI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026429831112-tkr53689n45ugb6tkd3ko33f01jfmlk0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1026429831112-s5c0tct3elrkrk6328pdqoodutf0rk95.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nl.hedr.mec3"
+              }
+            }
+          ]
         }
       }
     }

@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBSkYup7BxGJlwe7DLBTBcPT8AnBbD1NZ8',
-    appId: '1:611264886046:android:46454bae515c311d6ec50f',
-    messagingSenderId: '611264886046',
-    projectId: 'flutter-mec3',
-    storageBucket: 'flutter-mec3.appspot.com',
+    apiKey: 'AIzaSyCNE8LhtYBUhfQy1bh273FZFXkrTaLaNI4',
+    appId: '1:1026429831112:android:09e47e7ff05560da7262fd',
+    messagingSenderId: '1026429831112',
+    projectId: 'mec3-mobile',
+    storageBucket: 'mec3-mobile.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyALTirWOqyOasnS_DyzrJibuv1mQwXZEgw',
-    appId: '1:611264886046:ios:c03ae66b2b6268766ec50f',
-    messagingSenderId: '611264886046',
-    projectId: 'flutter-mec3',
-    storageBucket: 'flutter-mec3.appspot.com',
+    apiKey: 'AIzaSyDpvtMxyCyTdYuXUHpkHVGC9WgWw-cvpsU',
+    appId: '1:1026429831112:ios:46e64efc98390fec7262fd',
+    messagingSenderId: '1026429831112',
+    projectId: 'mec3-mobile',
+    storageBucket: 'mec3-mobile.appspot.com',
     iosBundleId: 'com.example.mec3mobileflutter',
   );
 }

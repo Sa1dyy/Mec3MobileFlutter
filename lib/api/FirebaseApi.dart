@@ -11,6 +11,7 @@ class FirebaseApi {
     final fCMToken = await _firebaseMessaging.getToken();
 
     debugPrint("token: " + fCMToken.toString());
+    await FirebaseMessaging.instance.subscribeToTopic("all");
   }
 
   void handleMessage(RemoteMessage? message) {
